@@ -6,7 +6,14 @@ Ce projet vise à explorer l'efficacité des langages de programmation différen
 
 ## Objectif
 Écrire un programme qui lit un fichier de texte contenant des données massives (ex. mesures météorologiques) et calcule des statistiques spécifiques (min, moyenne, max) de façon optimale.
-
+Pour générer les données, il est possible d'utiliser soit un script Python soit un script Bash.
+```
+python ./python/src/generate.py 1000000000
+```
+ou 
+```
+./generate 10000000
+```
 ## Contribution
 Ouvert à tous, ce défi encourage l'apprentissage et l'innovation dans le traitement de grandes données. Les participants peuvent utiliser n'importe quel langage de programmation.
 
