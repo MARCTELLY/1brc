@@ -50,14 +50,21 @@ Pour plus de détails, visitez le page du projet [original 1brc](https://github.
 
 ## FAQ
 
-Q : Puis-je utiliser des langages et/ou outils non-JVM ?\n
+Q : Puis-je utiliser des langages et/ou outils non-JVM ?
+
 R : Oui, ce défi est ouvert à tous les langages et outils. Aucune restriction n'est imposée sur le choix des librairies ou de frameworks.
 
+
 Q : Quel est l'encodage du fichier measurements.txt ?
+
 R : Le fichier est encodé en UTF-8.
 
+
 Q : Puis-je faire des hypothèses sur les noms des stations météorologiques apparaissant dans l'ensemble de données ?
+
 R : Non, bien qu'un ensemble fixe de noms de stations soit utilisé par le générateur de données, toute solution devrait fonctionner avec des noms de stations UTF-8 arbitraires.
 
+
 Q : Puis-je copier du code d'autres soumissions ?
+
 R : Oui, c'est possible. L'objectif principal du défi est d'apprendre quelque chose de nouveau, plutôt que de "gagner". Si vous le faites, veuillez créditer les soumissions sources pertinentes.
