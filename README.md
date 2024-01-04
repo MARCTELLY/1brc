@@ -38,7 +38,7 @@ Les contributions doivent être originales et respecter les standards de codage.
 
 Le défi est ouvert jusqu'au 31 janvier 2025.
 
-Pour plus de détails, visitez le page du projet [original 1brc](https://github.com/gunnarmorling/1brc).
+Pour plus de détails, visitez la page du projet [original 1brc](https://github.com/gunnarmorling/1brc).
 
 ## Pour commencer
 
