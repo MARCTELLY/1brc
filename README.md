@@ -50,7 +50,7 @@ Pour plus de détails, visitez le page du projet [original 1brc](https://github.
 
 ## FAQ
 
-Q : Puis-je utiliser des langages et/ou outils non-JVM ?
+Q : Puis-je utiliser des langages et/ou outils non-JVM ?\n
 R : Oui, ce défi est ouvert à tous les langages et outils. Aucune restriction n'est imposée sur le choix des librairies ou de frameworks.
 
 Q : Quel est l'encodage du fichier measurements.txt ?
