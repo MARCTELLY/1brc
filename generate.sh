@@ -1,0 +1,1 @@
+python ./python/src/generate_measurement.py $1
