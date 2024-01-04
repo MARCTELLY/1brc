@@ -12,7 +12,7 @@ python ./python/src/generate.py 1000000000
 ```
 ou 
 ```
-./generate 10000000
+./generate 1000000000
 ```
 ## Contribution
 Ouvert à tous, ce défi encourage l'apprentissage et l'innovation dans le traitement de grandes données. Les participants peuvent utiliser n'importe quel langage de programmation.
