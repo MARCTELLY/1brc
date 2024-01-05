@@ -38,7 +38,7 @@ Les contributions doivent être originales et respecter les standards de codage.
 
 Le défi est ouvert jusqu'au 31 janvier 2025.
 
-Pour plus de détails, visitez le page du projet [original 1brc](https://github.com/gunnarmorling/1brc).
+Pour plus de détails, visitez la page du projet [original 1brc](https://github.com/gunnarmorling/1brc).
 
 ## Pour commencer
 
@@ -51,13 +51,20 @@ Pour plus de détails, visitez le page du projet [original 1brc](https://github.
 ## FAQ
 
 Q : Puis-je utiliser des langages et/ou outils non-JVM ?
+
 R : Oui, ce défi est ouvert à tous les langages et outils. Aucune restriction n'est imposée sur le choix des librairies ou de frameworks.
 
+
 Q : Quel est l'encodage du fichier measurements.txt ?
+
 R : Le fichier est encodé en UTF-8.
 
+
 Q : Puis-je faire des hypothèses sur les noms des stations météorologiques apparaissant dans l'ensemble de données ?
+
 R : Non, bien qu'un ensemble fixe de noms de stations soit utilisé par le générateur de données, toute solution devrait fonctionner avec des noms de stations UTF-8 arbitraires.
 
+
 Q : Puis-je copier du code d'autres soumissions ?
+
 R : Oui, c'est possible. L'objectif principal du défi est d'apprendre quelque chose de nouveau, plutôt que de "gagner". Si vous le faites, veuillez créditer les soumissions sources pertinentes.
