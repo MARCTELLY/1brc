@@ -266,3 +266,4 @@ if __name__ == "__main__":
         "n", help="number of measurements to generate", type=int)
     args = parser.parse_args()
     main(args.n)
+    print("Done")
