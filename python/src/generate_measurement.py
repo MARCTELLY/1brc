@@ -1,6 +1,7 @@
 import random
 from itertools import islice, cycle
 import argparse
+import multiprocessing
 
 stations_list = [
     ("Abha", 18.0), ("Abidjan", 26.0),
@@ -218,25 +219,48 @@ def generate_measurement(station_name, mean):
     return f"{station_name};{temperature:.1f}\n"
 
 
-def generate_measurements(stations, count):
-    for station in islice(cycle(stations), count):
-        yield generate_measurement(station[0], station[1])
+def generate_measurements_chunk(stations, start, end):
+    return [generate_measurement(station[0], station[1]) for station in islice(cycle(stations), start, end)]
 
 
 def write_measurements_to_file(filename, measurements):
-    with open(filename, 'w') as file:
+    with open(filename, 'a') as file:
         for measurement in measurements:
             file.write(measurement)
 
 
+def worker(start, end, output_queue):
+    chunk = generate_measurements_chunk(stations_list, start, end)
+    output_queue.put(chunk)
+
+
 def main(n):
-    measurements = list(generate_measurements(stations_list, n))
+    num_processes = multiprocessing.cpu_count()
+    print(f"Using {num_processes} processes")
+    chunk_size = n // num_processes
+    output_queue = multiprocessing.Queue()
+
+    processes = []
+    for i in range(num_processes):
+        start = i * chunk_size
+        end = start + chunk_size if i < num_processes - 1 else n
+        p = multiprocessing.Process(
+            target=worker, args=(start, end, output_queue))
+        processes.append(p)
+        p.start()
+
+    measurements = []
+    for _ in range(num_processes):
+        measurements.extend(output_queue.get())
+
     random.shuffle(measurements)
     write_measurements_to_file('measurements.txt', measurements)
 
+    for p in processes:
+        p.join()
+
 
 if __name__ == "__main__":
-    # parse and get the first argument
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "n", help="number of measurements to generate", type=int)
