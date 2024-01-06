@@ -2,6 +2,23 @@ import random
 from itertools import islice, cycle
 import argparse
 import multiprocessing
+import time
+import sys
+
+
+import time
+import sys
+
+
+def print_progress_bar(iteration, total, prefix='', suffix='', length=50, fill='█', print_end="\r"):
+    percent = ("{0:.1f}").format(100 * (iteration / float(total)))
+    filled_length = int(length * iteration // total)
+    bar = fill * filled_length + '-' * (length - filled_length)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end=print_end)
+    # Print New Line on Complete
+    if iteration == total:
+        print()
+
 
 stations_list = [
     ("Abha", 18.0), ("Abidjan", 26.0),
@@ -246,12 +263,25 @@ def main(n):
     pool.join()
 
 
+def execution(n, chunk_size):
+    for i in range(args.n // args.chunk_size):
+        print(
+            f"Generating chunk {i + 1} of {args.n // args.chunk_size}", end="\r")
+        print_progress_bar(i + 1, args.n // args.chunk_size)
+        main(args.chunk_size)
+
+
 if __name__ == "__main__":
     import timeit
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "n", help="number of measurements to generate", type=int)
+    parser.add_argument(
+        "-cs", "--chunk-size", help="chunk size", type=int, default=100000)
     args = parser.parse_args()
-    execution_time = timeit.timeit(lambda: main(args.n), number=2)
+
+    execution_time = timeit.timeit(
+        lambda: execution(args.n, args.chunk_size), number=1)
+
     print(f"Execution time: {execution_time} seconds")
     print("Done")
