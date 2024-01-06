@@ -216,54 +216,42 @@ stations_list = [
 def generate_measurement(station_name, mean):
     variance = random.uniform(-10.9, 10.9)
     temperature = mean + variance
-    return f"{station_name};{temperature:.1f}\n"
+    return f"{station_name};{temperature:.1f}\n".encode("utf-8")
 
 
-def generate_measurements_chunk(stations, start, end):
-    return [generate_measurement(station[0], station[1]) for station in islice(cycle(stations), start, end)]
+def generate_measurements_chunk(chunk_range):
+    return [generate_measurement(station[0], station[1])
+            for station in islice(cycle(stations_list),
+                                  chunk_range[0], chunk_range[1])]
 
 
-def write_measurements_to_file(filename, measurements):
-    with open(filename, 'wb') as file:
-        for measurement in measurements:
-            file.write(measurement.encode('utf-8'))
-
-
-def worker(start, end, output_queue):
-    chunk = generate_measurements_chunk(stations_list, start, end)
-    output_queue.put(chunk)
+def write_measurements_chunk(measurements_chunk):
+    with open('measurements.txt', 'ab') as file:
+        for measurement in measurements_chunk:
+            file.write(measurement)
 
 
 def main(n):
     num_processes = multiprocessing.cpu_count()
-    print(f"Using {num_processes} processes")
+    pool = multiprocessing.Pool(processes=num_processes)
     chunk_size = n // num_processes
-    output_queue = multiprocessing.Queue()
+    chunks = [(i * chunk_size, (i + 1) * chunk_size)
+              for i in range(num_processes)]
 
-    processes = []
-    for i in range(num_processes):
-        start = i * chunk_size
-        end = start + chunk_size if i < num_processes - 1 else n
-        p = multiprocessing.Process(
-            target=worker, args=(start, end, output_queue))
-        processes.append(p)
-        p.start()
+    for chunk in chunks:
+        pool.apply_async(generate_measurements_chunk, args=(
+            chunk,), callback=write_measurements_chunk)
 
-    measurements = []
-    for _ in range(num_processes):
-        measurements.extend(output_queue.get())
-
-    random.shuffle(measurements)
-    write_measurements_to_file('measurements.txt', measurements)
-
-    for p in processes:
-        p.join()
+    pool.close()
+    pool.join()
 
 
 if __name__ == "__main__":
+    import timeit
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "n", help="number of measurements to generate", type=int)
     args = parser.parse_args()
-    main(args.n)
+    execution_time = timeit.timeit(lambda: main(args.n), number=2)
+    print(f"Execution time: {execution_time} seconds")
     print("Done")
