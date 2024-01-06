@@ -224,9 +224,9 @@ def generate_measurements_chunk(stations, start, end):
 
 
 def write_measurements_to_file(filename, measurements):
-    with open(filename, 'a') as file:
+    with open(filename, 'wb') as file:
         for measurement in measurements:
-            file.write(measurement)
+            file.write(measurement.encode('utf-8'))
 
 
 def worker(start, end, output_queue):
